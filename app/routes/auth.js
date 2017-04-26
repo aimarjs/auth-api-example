@@ -1,5 +1,7 @@
+const express = require('express');
 const validator = require('validator');
-const User = require('../models/user');
+
+const router = new express.Router();
 
 function validateSignupForm(payload) {
   const errors = {};
@@ -32,24 +34,6 @@ function validateSignupForm(payload) {
   };
 }
 
-exports.signup = function(req, res, next) {
-  const validationResult = validateSignupForm(req.body);
-  if (!validationResult.success) {
-    return res.status(400).json({
-      success: false,
-      message: validationResult.message,
-      errors: validationResult.errors
-    });
-  }
-  return res.status(200).json({
-    success: true,
-    message: 'Successfully signed up!',
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  });
-}
-
 function validateLoginForm(payload) {
   const errors = {};
   let isFormValid = true;
@@ -76,7 +60,20 @@ function validateLoginForm(payload) {
   };
 }
 
-exports.login = function(req, res, next) {
+router.post('/signup', (req, res) => {
+  const validationResult = validateSignupForm(req.body);
+  if (!validationResult.success) {
+    return res.status(400).json({
+      success: false,
+      message: validationResult.message,
+      errors: validationResult.errors
+    });
+  }
+
+  return res.status(200).end();
+});
+
+router.post('/login', (req, res) => {
   const validationResult = validateLoginForm(req.body);
   if (!validationResult.success) {
     return res.status(400).json({
@@ -85,5 +82,9 @@ exports.login = function(req, res, next) {
       errors: validationResult.errors
     });
   }
+
   return res.status(200).end();
-}
+});
+
+
+module.exports = router;
