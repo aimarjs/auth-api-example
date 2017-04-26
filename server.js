@@ -1,8 +1,10 @@
 const express = require('express');
-const app = express();
+var cors = require('cors')
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
+const app = express();
 
 const jwt    = require('jsonwebtoken');
 const config = require('./config');
@@ -16,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan('dev'));
+app.use(cors())
 
 app.get('/', function(req, res) {
     res.send('Hello! The API is at http://localhost:' + port + '/api');
