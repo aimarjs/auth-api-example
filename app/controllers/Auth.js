@@ -124,7 +124,6 @@ exports.login = function(req, res, next) {
       });
     }
 
-
     return res.json({
       success: true,
       message: 'You have successfully logged in!',

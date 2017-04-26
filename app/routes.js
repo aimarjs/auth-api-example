@@ -1,4 +1,5 @@
 const Auth = require('./controllers/Auth');
+const User = require('./controllers/Profile');
 
 module.exports = function(app) {
 
@@ -8,5 +9,7 @@ module.exports = function(app) {
 
   app.post('/auth/signup', Auth.signup);
   app.post('/auth/login', Auth.login);
+
+  app.get('/api/profile', User.Profile);
 
 }
