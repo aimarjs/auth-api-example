@@ -30,7 +30,7 @@ app.get('/', function(req, res) {
 });
 
 const authCheckMiddleware = require('./app/middleware/auth-check');
-app.use('/api/auth', authCheckMiddleware);
+app.use('/api', authCheckMiddleware);
 
 const router = require('./app/routes');
 
