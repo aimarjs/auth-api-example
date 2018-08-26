@@ -10,8 +10,8 @@ const User = require('./app/models/user');
 
 const app = express();
 
-const port = process.env.PORT || 8080;
-mongoose.connect(config.database);
+const port = process.env.PORT || 4000;
+mongoose.connect(config.database, { useMongoClient: true });
 app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +30,7 @@ app.get('/', function(req, res) {
 });
 
 const authCheckMiddleware = require('./app/middleware/auth-check');
-app.use('/api', authCheckMiddleware);
+app.use('/api/v1', authCheckMiddleware);
 
 const router = require('./app/routes');
 
